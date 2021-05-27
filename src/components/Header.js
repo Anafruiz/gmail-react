@@ -4,7 +4,7 @@ function Header() {
   return (
     <header className="col2 mb-1">
       <div>
-        <h1 classNameName="title">
+        <h1 className="title">
           <span className="fas fa-envelope-open-text"></span>
           Gmail
         </h1>
