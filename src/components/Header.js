@@ -1,6 +1,6 @@
 import HeaderForm from "./HeaderForm";
 
-function Header() {
+function Header(props) {
   return (
     <header className="col2 mb-1">
       <div>
@@ -9,7 +9,11 @@ function Header() {
           Gmail
         </h1>
       </div>
-      <HeaderForm />
+      <HeaderForm
+        handleInboxFilter={props.handleInboxFilter}
+        handleTextFilter={props.handleTextFilter}
+        handleDeletedFilter={props.handleDeletedFilter}
+      />
     </header>
   );
 }
