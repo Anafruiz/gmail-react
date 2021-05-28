@@ -9,9 +9,7 @@ function HeaderForm(props) {
   }
   function handleTextFilter(ev) {
     ev.preventDefault();
-    props.handleTextFilter({
-      filterText: ev.target.value,
-    });
+    props.handleTextFilter(ev.target.value);
   }
   return (
     <form className="text-align-right">
