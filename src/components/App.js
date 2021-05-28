@@ -19,19 +19,17 @@ function App() {
   const handleTextFilter = (data) => {
     setInboxFilter(data);
 
-    const inboxFilter = data.toLowerCase();
-    const FilteredEmails = apiEmails.filter((email) => {
-      return (
-        email.subject.toLowerCase().includes(inboxFilter.toLocaleLowerCase()) ||
-        email.fromName
-          .toLowerCase()
-          .includes(inboxFilter.toLocaleLowerCase()) ||
-        email.body.toLowerCase().includes(inboxFilter.toLocaleLowerCase())
-      );
-    });
-    setApiEmails(FilteredEmails);
-
-    console.log("nuevo estado", FilteredEmails);
+    // const inboxFilter = data.toLowerCase();
+    // const FilteredEmails = apiEmails.filter((email) => {
+    //   return (
+    //     email.subject.toLowerCase().includes(inboxFilter.toLocaleLowerCase()) ||
+    //     email.fromName
+    //       .toLowerCase()
+    //       .includes(inboxFilter.toLocaleLowerCase()) ||
+    //     email.body.toLowerCase().includes(inboxFilter.toLocaleLowerCase())
+    //   );
+    // });
+    // setApiEmails(FilteredEmails);
   };
   const renderEmails = () => {
     return apiEmails
@@ -53,6 +51,8 @@ function App() {
             from={email.fromName}
             subject={email.subject}
             time={email.date}
+            deleted={email.deleted}
+            read={email.read}
           />
         );
       });
