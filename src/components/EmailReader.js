@@ -3,10 +3,16 @@ import React from "react";
 class EmailReader extends React.Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleCloseEmail = this.handleCloseEmail.bind(this);
   }
-  handleClick() {
-    console.log("me han clickado");
+
+  handleDelete() {
+    this.props.handleDeleteEmail(this.props.id);
+  }
+
+  handleCloseEmail() {
+    this.props.handleCloseEmail();
   }
   render() {
     return (
@@ -24,12 +30,15 @@ class EmailReader extends React.Component {
             </h3>
           </div>
           <div className="text-align-right">
-            <a href="#">
-              <button className="fas fa-times-circle form__btn"></button>
-            </a>
-            <a href="#">
-              <button className="fas fa-trash form__btn"></button>
-            </a>
+            <button
+              className="fas fa-times-circle form__btn"
+              onClick={this.handleCloseEmail}
+            ></button>
+
+            <button
+              className="fas fa-trash form__btn"
+              onClick={this.handleDelete}
+            ></button>
           </div>
         </div>
         <p>{this.props.body}</p>
