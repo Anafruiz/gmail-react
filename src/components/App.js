@@ -6,30 +6,13 @@ import apiEmails from "./data/emails.json";
 import React, { useState } from "react";
 
 function App() {
+  //States
+  const [emails, setEmails] = useState(apiEmails);
   const [inboxFilter, setInboxFilter] = useState("");
-  const [emails, setApiEmails] = useState(apiEmails);
   const [showInbox, setShowInbox] = useState(true);
   const [showEmailId, setShowEmailId] = useState("");
 
-  const handleDeleteEmail = (emailId) => {
-    const email = emails.find((email) => email.id === emailId);
-    email.deleted = true;
-    return {
-      showEmailId: emailId === showEmailId ? "" : showEmailId,
-      //if user deletes the selected email, we unselect the email
-      emails: emails,
-    };
-  };
-  const handleSelectEmail = (emailId) => {
-    setShowEmailId(emailId);
-    const email = emails.find((email) => email.id === emailId);
-    email.read = true;
-    return {
-      showEmailId: emailId,
-      emails: emails,
-    };
-  };
-
+  //event handlers
   const handleInboxFilter = () => {
     setShowInbox(true);
   };
@@ -38,87 +21,32 @@ function App() {
   };
   const handleTextFilter = (data) => {
     setInboxFilter(data);
-
-    // const inboxFilter = data.toLowerCase();
-    // const FilteredEmails = apiEmails.filter((email) => {
-    //   return (
-    //     email.subject.toLowerCase().includes(inboxFilter.toLocaleLowerCase()) ||
-    //     email.fromName
-    //       .toLowerCase()
-    //       .includes(inboxFilter.toLocaleLowerCase()) ||
-    //     email.body.toLowerCase().includes(inboxFilter.toLocaleLowerCase())
-    //   );
-    // });
-    // setApiEmails(FilteredEmails);
   };
+
+  const handleSelectEmail = (emailId) => {
+    // clean email id
+    setShowEmailId(emailId);
+    // set email read attribute to true
+    const email = emails.find((email) => email.id === emailId);
+    email.read = true;
+    setEmails([...emails]);
+  };
+  const handleDeleteEmail = (emailId) => {
+    // clean email id
+    if (emailId === showEmailId) {
+      setShowEmailId("");
+    }
+    // set email deleted attribute to true
+    const email = emails.find((email) => email.id === emailId);
+    email.deleted = true;
+    setEmails([...emails]);
+  };
+
   const handleCloseEmail = () => {
     setShowEmailId("");
   };
-  const renderEmails = () => {
-    return (
-      apiEmails
-        //filter inbox vs deleted
-        .filter((email) => {
-          return (
-            email.subject
-              .toLowerCase()
-              .includes(inboxFilter.toLocaleLowerCase()) ||
-            email.fromName
-              .toLowerCase()
-              .includes(inboxFilter.toLocaleLowerCase()) ||
-            email.body.toLowerCase().includes(inboxFilter.toLocaleLowerCase())
-          );
-        })
-        //filter by inboxFilter text
-        .filter((email) => {
-          //TERNARIO
-          // return showInbox === true ? !email.deleted : email.deleted;
-          if (showInbox === true) {
-            // return !email.deleted
-            //este valor es el mismo código que las condicionales de abajo pero de una manera más limpia
-            if (email.deleted === true) {
-              return false;
-            } else {
-              return true;
-            }
-          } else {
-            return email.deleted;
-          }
-        })
-        .map((email) => {
-          return (
-            <EmailItem
-              key={email.id}
-              id={email.id}
-              from={email.fromName}
-              subject={email.subject}
-              time={email.date}
-              deleted={email.deleted}
-              read={email.read}
-              handleDeleteEmail={handleDeleteEmail}
-              handleSelectEmail={handleSelectEmail}
-            />
-          );
-        })
-    );
-  };
 
-  const renderEmailDetail = () => {
-    const selectedEmail = emails.find((email) => email.id === showEmailId);
-    if (selectedEmail) {
-      return (
-        <EmailReader
-          fromName={selectedEmail.fromName}
-          fromEmail={selectedEmail.fromEmail}
-          subject={selectedEmail.subject}
-          body={selectedEmail.body}
-          handleDeleteEmail={handleDeleteEmail}
-          id={selectedEmail.id}
-          handleCloseEmail={handleCloseEmail}
-        />
-      );
-    }
-  };
+  // render helpers
 
   const renderFilters = () => {
     const emailType = showInbox ? " recibidos" : " borrados";
@@ -139,6 +67,59 @@ function App() {
       </p>
     );
   };
+
+  const renderEmails = () => {
+    const lowerCaseInboxFilter = inboxFilter.toLowerCase();
+    return (
+      emails
+        // filter by inbox vs deleted
+        .filter((email) => {
+          // return showInbox !== email.deleted;
+          return showInbox === true ? !email.deleted : email.deleted;
+        })
+        // filter by inboxFilter text
+        .filter((email) => {
+          return (
+            email.fromName.toLowerCase().includes(lowerCaseInboxFilter) ||
+            email.subject.toLowerCase().includes(lowerCaseInboxFilter) ||
+            email.body.toLowerCase().includes(lowerCaseInboxFilter)
+          );
+        })
+        .map((email) => {
+          return (
+            <EmailItem
+              key={email.id}
+              id={email.id}
+              from={email.fromName}
+              subject={email.subject}
+              time={email.date}
+              read={email.read}
+              deleted={email.deleted}
+              handleSelectEmail={handleSelectEmail}
+              handleDeleteEmail={handleDeleteEmail}
+            />
+          );
+        })
+    );
+  };
+  const renderEmailDetail = () => {
+    const selectedEmail = emails.find((email) => email.id === showEmailId);
+    if (selectedEmail) {
+      return (
+        <EmailReader
+          fromName={selectedEmail.fromName}
+          fromEmail={selectedEmail.fromEmail}
+          subject={selectedEmail.subject}
+          body={selectedEmail.body}
+          id={selectedEmail.id}
+          handleDeleteEmail={handleDeleteEmail}
+          handleCloseEmail={handleCloseEmail}
+        />
+      );
+    }
+  };
+  console.log("Renderizando");
+
   return (
     <div>
       <Header
