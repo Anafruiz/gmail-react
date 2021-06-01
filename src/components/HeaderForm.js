@@ -27,7 +27,7 @@ function HeaderForm(props) {
       <input
         className="form__input-text"
         type="text"
-        defaultValue={props.inboxFilter}
+        defaultValue={props.textFilter}
         placeholder="Buscar un correo"
         onKeyUp={handleTextFilter}
       />

@@ -1,19 +1,20 @@
 import HeaderForm from "./HeaderForm";
 import React from "react";
+import { Link } from "react-router-dom";
+
 class EmailReader extends React.Component {
   constructor(props) {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
-    this.handleCloseEmail = this.handleCloseEmail.bind(this);
+  }
+  componentDidMount() {
+    this.props.handleReadEmail(this.props.id);
   }
 
   handleDelete() {
     this.props.handleDeleteEmail(this.props.id);
   }
 
-  handleCloseEmail() {
-    this.props.handleCloseEmail();
-  }
   render() {
     return (
       <div>
@@ -30,15 +31,12 @@ class EmailReader extends React.Component {
             </h3>
           </div>
           <div className="text-align-right">
-            <button
-              className="fas fa-times-circle form__btn"
-              onClick={this.handleCloseEmail}
-            ></button>
-
-            <button
+            <Link className="fas fa-times-circle form__btn" to="/" />
+            <Link
               className="fas fa-trash form__btn"
-              onClick={this.handleDelete}
-            ></button>
+              to="/"
+              onClick={this.handleDeleteEmail}
+            />
           </div>
         </div>
         <p>{this.props.body}</p>
