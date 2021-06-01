@@ -9,7 +9,10 @@ function HeaderForm(props) {
   }
   function handleTextFilter(ev) {
     ev.preventDefault();
-    props.handleTextFilter(ev.target.value);
+    const data = {
+      value: ev.target.value,
+    };
+    props.handleTextFilter(data);
   }
   return (
     <form className="text-align-right">
@@ -24,6 +27,7 @@ function HeaderForm(props) {
       <input
         className="form__input-text"
         type="text"
+        defaultValue={props.inboxFilter}
         placeholder="Buscar un correo"
         onKeyUp={handleTextFilter}
       />

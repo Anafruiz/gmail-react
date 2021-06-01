@@ -20,7 +20,7 @@ function App() {
     setShowInbox(false);
   };
   const handleTextFilter = (data) => {
-    setInboxFilter(data);
+    setInboxFilter(data.value);
   };
 
   const handleSelectEmail = (emailId) => {
@@ -123,6 +123,7 @@ function App() {
   return (
     <div>
       <Header
+        inboxFilter={inboxFilter}
         handleInboxFilter={handleInboxFilter}
         handleDeletedFilter={handleDeletedFilter}
         handleTextFilter={handleTextFilter}
