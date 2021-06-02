@@ -2,16 +2,16 @@ import React from "react";
 import { Link, Route } from "react-router-dom";
 
 const FooterMain = () => {
+  const renderLink = (text, to) => {
+    return (
+      <Link className="nav__link text--decoration--none" to={to}>
+        {text}
+      </Link>
+    );
+  };
   const renderLinkToHome = (props) => {
     if (props.match.isExact === false) {
-      return (
-        <>
-          /
-          <Link className="nav__link text--decoration--none" to="/">
-            Ir a la home
-          </Link>
-        </>
-      );
+      return <>/{renderLink("Ir a la home", "/")}</>;
     } else {
       return null;
     }
@@ -20,13 +20,8 @@ const FooterMain = () => {
   return (
     <div className="col2">
       <small className="text--primary-light">
-        <Link className="nav__link text--decoration--none" to="/privacy">
-          Política de privacidad
-        </Link>
-        /
-        <Link className="nav__link text--decoration--none" to="/cookies">
-          Cookies
-        </Link>
+        {renderLink("Politica de privacidad", "/privacy")}/
+        {renderLink("Cookies", "/Cookies")}/
         <Route path="/" children={renderLinkToHome} />
       </small>
       <small className="text--primary-light text-align-right">

@@ -1,4 +1,3 @@
-import HeaderForm from "./HeaderForm";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -16,6 +15,8 @@ class EmailReader extends React.Component {
   }
 
   render() {
+    let trashIconClass = this.props.deleted ? "fa-trash-restore" : "fa-trash";
+
     return (
       <div>
         <div className="col2 mt-1 pt-1">
@@ -33,7 +34,7 @@ class EmailReader extends React.Component {
           <div className="text-align-right">
             <Link className="fas fa-times-circle form__btn" to="/" />
             <Link
-              className="fas fa-trash form__btn"
+              className={`form__btn fas ${trashIconClass}`}
               to="/"
               onClick={this.handleDeleteEmail}
             />
@@ -42,15 +43,15 @@ class EmailReader extends React.Component {
         <p>{this.props.body}</p>
         <div className="mt-1">
           <button className="form__btn" onClick={this.handleClick}>
-            <span className="fas fa-reply"></span>
+            <span className="fas fa-reply" />
             Responder
           </button>
           <button className="form__btn">
-            <span className="fas fa-reply-all"></span>
+            <span className="fas fa-reply-all" />
             Responder a todos
           </button>
           <button className="form__btn">
-            <span className="fas fa-share"></span>
+            <span className="fas fa-share" />
             Reenviar a todos
           </button>
         </div>

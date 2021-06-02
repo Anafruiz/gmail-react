@@ -24,6 +24,7 @@ function HeaderForm(props) {
         <span className="fas fa-trash"></span>
         Papelera
       </button>
+
       <input
         className="form__input-text"
         type="text"
