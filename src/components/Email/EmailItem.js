@@ -1,4 +1,3 @@
-import "../../stylesheet/EmailItem.css";
 import { Link } from "react-router-dom";
 
 function EmailItem(props) {

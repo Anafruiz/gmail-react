@@ -5,7 +5,7 @@ import HeaderFilters from "./HeaderFilters";
 function Header(props) {
   return (
     <header>
-      <div className="col2 mb-1">
+      <div>
         <div>
           <h1 className="title">
             <Link to="/" className="text--decoration--none">

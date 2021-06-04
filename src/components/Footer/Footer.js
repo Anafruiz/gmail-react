@@ -3,7 +3,6 @@ import { Route, Switch } from "react-router-dom";
 import FooterPolicy from "./FooterPolicy";
 import FooterCookies from "./FooterCookies";
 import FooterMain from "./FooterMain";
-import "../../stylesheet/Footer.css";
 
 const Footer = () => {
   return (

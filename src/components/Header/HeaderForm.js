@@ -15,7 +15,7 @@ function HeaderForm(props) {
     props.handleTextFilter(data);
   }
   return (
-    <form className="text-align-right">
+    <form className="header__inputs">
       <button className="form__btn" onClick={handleButton}>
         <span className="fas fa-inbox"></span>
         Recibidos
